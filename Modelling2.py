@@ -167,7 +167,6 @@ for k in range(len(aClmp_M)):
 
                 if (Prev_M > aClmp_M[k]*0.99):
 
-                    break
 
                     Clstr_pop = Clstr_pop - 1
 
@@ -296,14 +295,14 @@ plt.show()
 #plt.cla()
 x = [1,2,3,4,5,6,7,8]    
 for xe, ye in zip(x, data):
-    plt.hist2d([xe] * len(ye), ye, bins=8 , cmap='Blues')
-    
+    plt.hist2d([xe] * len(ye), ye, bins=[8,100] , cmap='Blues')
+    #plt.hexbin([xe] * len(ye), ye, gridsize = , cmap='Blues' )
   
 plt.xticks(x)
 plt.axes().set_xticklabels(['1', '2','3','4','5','6','7','8'])
+plt.colorbar()
 plt.show()   
-#plt.colorbar()
-plt.show()    
+   
     
     
     
