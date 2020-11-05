@@ -252,117 +252,6 @@ for k in range(len(aClmp_M)):
 
                                                      
 
-#---------------------------------------------------------------------  
-
-# Calculate/store average values and edit arrays for plotting
-
-
-
-    # Store average values for average lines on plots
-
-#    AvL = Total_Clstr_L/runs
-#
-#    sAvL.append(AvL)
-#
-#    AvS = Total_SFE/runs
-#
-#    sAvS.append(AvS) 
-#
-#    AvA = Total_AvStar_M/runs
-#
-#    sAvA.append(AvA) 
-#
-#    AvN = Total_LyFlx/runs
-#
-#    sAvN.append(AvN) 
-#
-#    Avi = Total_Clstr_pop/runs
-#
-#    sAvi.append(Avi) 
-#
-#    AvMM = Total_Most_M/runs
-#
-#    sAvMM.append(AvMM)
-
-    
-
-    # Sort the arrays (size order)
-
-#    sortaL = np.sort(aClstr_L)
-#
-#    sortaSFE = np.sort(aSFE)
-#
-#    sortaMM = np.sort(aMost_M)
-#
-#    sortCp = np.sort(aClstr_pop)
-#
-#    sortaAvM = np.sort(aAvStar_M)
-#
-#    sortaLy = np.sort(aLyFlx)
-#
-#
-#
-#    # Trim arrays to desired band size:
-#
-#    # Luminosity
-#
-#    midaLa = stats.trimboth(sortaL, 0.1)
-#
-#    midaLb = stats.trimboth(sortaL, 0.2)
-#
-#    midaLc = stats.trimboth(sortaL, 0.3)
-#
-#    midaLd = stats.trimboth(sortaL, 0.4)
-#
-#    # SFE
-#
-#    aSFEa = stats.trimboth(sortaSFE, 0.1)
-#
-#    aSFEb = stats.trimboth(sortaSFE, 0.2)
-#
-#    aSFEc = stats.trimboth(sortaSFE, 0.3)
-#
-#    aSFEd = stats.trimboth(sortaSFE, 0.4)   
-#
-#    # Cluster population
-#
-#    midCpa = stats.trimboth(sortCp, 0.1)
-#
-#    midCpb = stats.trimboth(sortCp, 0.2)
-#
-#    midCpc = stats.trimboth(sortCp, 0.3)
-#
-#    midCpd = stats.trimboth(sortCp, 0.4)
-#
-#    # Average stellar mass
-#
-#    midaAvMa = stats.trimboth(sortaAvM, 0.1)
-#
-#    midaAvMb = stats.trimboth(sortaAvM, 0.2)
-#
-#    midaAvMc = stats.trimboth(sortaAvM, 0.3)
-#
-#    midaAvMd = stats.trimboth(sortaAvM, 0.4)    
-#
-#    # Lyman Flux
-#
-#    midaLya = stats.trimboth(sortaLy, 0.1)
-#
-#    midaLyb = stats.trimboth(sortaLy, 0.2)
-#
-#    midaLyc = stats.trimboth(sortaLy, 0.3)
-#
-#    midaLyd = stats.trimboth(sortaLy, 0.4)
-#
-#    # Most Massive Star
-#
-#    midaMMa = stats.trimboth(sortaMM, 0.1)
-#
-#    midaMMb = stats.trimboth(sortaMM, 0.2)
-#
-#    midaMMc = stats.trimboth(sortaMM, 0.3)
-#
-#    midaMMd = stats.trimboth(sortaMM, 0.4)
 
     
 
@@ -407,9 +296,9 @@ plt.show()
 #plt.cla()
 x = [1,2,3,4,5,6,7,8]    
 for xe, ye in zip(x, data):
-    plt.hist2d([xe] * len(ye), ye, bins=(8)-0.5, cmap='Blues')
+    plt.hist2d([xe] * len(ye), ye, bins=8 , cmap='Blues')
     
-rwidth = 1    
+  
 plt.xticks(x)
 plt.axes().set_xticklabels(['1', '2','3','4','5','6','7','8'])
 plt.show()   
