@@ -7,7 +7,7 @@ Created on Sun Oct 25 12:47:13 2020
 """
 
 #Modelling2.0
-
+#Git version
 
 import math as m
 import numpy as np
