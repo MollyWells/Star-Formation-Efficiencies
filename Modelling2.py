@@ -7,7 +7,6 @@ Created on Sun Oct 25 12:47:13 2020
 """
 
 #Modelling2.0
-#Git version
 
 import math as m
 import numpy as np
@@ -410,7 +409,7 @@ x = [1,2,3,4,5,6,7,8]
 for xe, ye in zip(x, data):
     plt.hist2d([xe] * len(ye), ye, bins=(8)-0.5, cmap='Blues')
     
-    
+rwidth = 1    
 plt.xticks(x)
 plt.axes().set_xticklabels(['1', '2','3','4','5','6','7','8'])
 plt.show()   
