@@ -225,48 +225,8 @@ for k in range(len(aClmp_M)):
 
 
 
-    # Convert strings to arrays              
-#
-#    aSFE = np.asarray(sSFE)                   
-#
-#    aClstr_L = np.asarray(sClstr_L) 
-#
-#    aClstr_M = np.asarray(sClstr_M)   
-#
-#    aLyFlx = np.asarray(sLyFlx)         
-#
-#    aMost_M = np.asarray(sMost_M)              
-#
-#    aMost_L = np.asarray(sMost_L)           
-#
-#    aMost_LyFlx = np.asarray(sMost_LyFlx)   
-#
-#    aTMC = np.asarray(sTMC)               
-#
-#    aClstr_pop = np.asarray(sClstr_pop)
-#
-#    aAvStar_M = np.asarray(sAvStar_M)
 
-
-
-                                                     
-
-
-    
-
-
-
-
-###############################################################################
-
-###############################################################################
-
-##################### END of loop around each CLUMP MASS ######################
-
-###############################################################################
-
-###############################################################################
-
+                                                    
  #BOXPLOT SFE vs INITIAL CLUMP MASS
     
 data1 = SFE_all[0] 
@@ -283,22 +243,31 @@ data11 = SFE_all[10]
 data12 = SFE_all[11]    
     
 data = [data1,data2,data3,data4,data5,data6,data7,data8]
-
 plt.boxplot(data, positions = [1,2,3,4,5,6,7,8], showfliers = False)
 plt.xticks(np.array([1,2,3,4,5,6,7,8]), (125, 150, 2,3,4,5,6,7))
-# show plot 
 plt.show() 
     
-#2D histogram  
+data_all = np.concatenate([data1,data2,data3,data4,data5,data6,data7,data8])
+x1 = [1] * 1000
+x2 = [2] * 1000
+x3 = [3] * 1000
+x4 = [4] * 1000
+x5 = [5] * 1000
+x6 = [6] * 1000
+x7 = [7] * 1000
+x8 = [8] * 1000
+x_all = np.concatenate([x1,x2,x3,x4,x5,x6,x7,x8])
 
 
-#plt.cla()
+
+
 x = [1,2,3,4,5,6,7,8]    
-for xe, ye in zip(x, data):
-    plt.hist2d([xe] * len(ye), ye, bins=[8,100] , cmap='Blues')
-    #plt.hexbin([xe] * len(ye), ye, gridsize = , cmap='Blues' )
-  
+#for xe, ye in zip(x, data):
+ #   plt.hist2d([xe] * len(ye), ye, bins=100 , cmap='Blues')
+    
+plt.hist2d(x_all,data_all, bins =[8,50], cmap = 'Blues' )  
 plt.xticks(x)
+plt.ylim(0,25)
 plt.axes().set_xticklabels(['1', '2','3','4','5','6','7','8'])
 plt.colorbar()
 plt.show()   
