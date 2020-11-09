@@ -30,20 +30,18 @@ for n in range(5000):
 
 aStellar_mass = np.asarray(sStellar_mass)
 
-
-
 # Assign stellar mass probabilities in accordance to Kroupa (2001) IMF
 aC_Prob = np.genfromtxt('IMFC_Prob.csv', delimiter = ',', usecols = 2)
 
-
 # IMPORT CLUMP MASS VALUES 
 aClmp_M = np.genfromtxt('CMasses.csv', delimiter = ',', usecols = 2)
+
+
 
 SFE_all = []
 #START OF LOOP
 
 runs = 1000
-
 for k in range(len(aClmp_M)):
 
     
@@ -249,17 +247,15 @@ data17 = SFE_all[16]
 data18 = SFE_all[17] 
 data19 = SFE_all[18] 
 data20 = SFE_all[19] 
-data21 = SFE_all[20]
-
-    
-data = [data1,data2,data3,data4,data5,data6,data7,data8,data9,data10,data11,data12,data13,data14,data15,data16,data17,data18,data19,data20,data21]
-plt.boxplot(data, positions = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21], showfliers = False)
-plt.xticks(np.array([1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21]), (2, 2.1,2.2,2.3,2.4,2.5,2.6,2.7,2.8,2.9,3,3.1,3.2,3.3,3.4,3.5,3.6,3.7,3.8,3.9,4))
-plt.xlabel('Log(Mass)')
-plt.ylabel('SFE (%)')
-plt.show() 
-    
+data21 = SFE_all[20]    
 data_all = np.concatenate([data1,data2,data3,data4,data5,data6,data7,data8,data9,data10,data11,data12,data13,data14,data15,data16,data17,data18,data19,data20,data21])
+data_all1 = np.concatenate([data1,data2,data3,data4,data5,data6])
+data_all2 = np.concatenate([data7,data8,data9,data10,data11])
+data_all3 = np.concatenate([data12,data13,data14,data15,data16])
+data_all4 = np.concatenate([data17,data18,data19,data20,data21])
+
+
+
 x1 = [2] * 1000
 x2 = [2.1] * 1000
 x3 = [2.2] * 1000
@@ -281,17 +277,20 @@ x18 = [3.7] * 1000
 x19 = [3.8] * 1000
 x20 = [3.9] * 1000
 x21 = [4] * 1000
+
 x_all = np.concatenate([x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21])
 x_all1 = np.concatenate([x1,x2,x3,x4,x5,x6])
 x_all2 = np.concatenate([x7,x8,x9,x10,x11])
 x_all3 = np.concatenate([x12,x13,x14,x15,x16])
 x_all4 = np.concatenate([x17,x18,x19,x20,x21])
 
+data = [data1,data2,data3,data4,data5,data6,data7,data8,data9,data10,data11,data12,data13,data14,data15,data16,data17,data18,data19,data20,data21]
+plt.boxplot(data, positions = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21], showfliers = False)
+plt.xticks(np.array([1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21]), (2, 2.1,2.2,2.3,2.4,2.5,2.6,2.7,2.8,2.9,3,3.1,3.2,3.3,3.4,3.5,3.6,3.7,3.8,3.9,4))
+plt.xlabel('Log(Mass)')
+plt.ylabel('SFE (%)')
+plt.show() 
 
-data_all1 = np.concatenate([data1,data2,data3,data4,data5,data6])
-data_all2 = np.concatenate([data7,data8,data9,data10,data11])
-data_all3 = np.concatenate([data12,data13,data14,data15,data16])
-data_all4 = np.concatenate([data17,data18,data19,data20,data21])
 
 
 x = [2,2.1,2.2,2.3,2.4,2.5,2.6,2.7,2.8,2.9,3,3.1,3.2,3.3,3.4,3.5,3.6,3.7,3.8,3.9,4]    
