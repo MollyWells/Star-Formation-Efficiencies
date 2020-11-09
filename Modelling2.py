@@ -22,7 +22,7 @@ import numpy as np
 sStellar_mass = []
 x = 0.1
 
-for n in range(5000):
+for n in range(1024):
 
     sStellar_mass.append(x)
 
@@ -88,7 +88,7 @@ for k in range(len(aClmp_M)):
         print('running')
         counter = 0
 
-        while (Clstr_L <= (Clstr_M**1.1849)):
+        while (Clstr_L <= 21.82*(Clstr_M**1.1849)):
             
             if counter == runs:
                 break
@@ -137,11 +137,11 @@ for k in range(len(aClmp_M)):
 
                 if (Star_M < 1):      
 
-                        Clstr_L = Clstr_L+Star_M**4    
+                        Clstr_L = Clstr_L+(Star_M**4)  
 
                 else:                            
 
-                        Clstr_L = Clstr_L+Star_M**(a) 
+                        Clstr_L = Clstr_L+(Star_M**(a)) 
 
 
                 try:
@@ -293,7 +293,7 @@ plt.show()
 
 
 
-x = [2,2.1,2.2,2.3,2.4,2.5,2.6,2.7,2.8,2.9,3,3.1,3.2,3.3,3.4,3.5,3.6,3.7,3.8,3.9,4]    
+xA = [2,2.1,2.2,2.3,2.4,2.5,2.6,2.7,2.8,2.9,3,3.1,3.2,3.3,3.4,3.5,3.6,3.7,3.8,3.9,4]    
 xa = [2,2.1,2.2,2.3,2.4,2.5]
 xb = [2.6,2.7,2.8,2.9,3]
 xc = [3.1,3.2,3.3,3.4,3.5]
@@ -302,7 +302,7 @@ xd = [3.6,3.7,3.8,3.9,4]
     #plt.hist2d([xe] * len(ye), data, bins=[21,150] , cmap='Blues')
     
 plt.hist2d(x_all,data_all, bins =[21,150], cmap = 'Blues' )  
-plt.xticks(x)
+plt.xticks(xA)
 plt.ylim(0,25)
 #plt.axes().set_xticklabels(['1', '2','3','4','5','6','7','8'])
 plt.colorbar()
