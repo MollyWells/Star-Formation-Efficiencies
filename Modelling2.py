@@ -202,6 +202,7 @@ for k in range(len(aClmp_M)):
                 break
             
             #counter += 1
+            
 
         if debug:
             print ('Cluster', j, Clstr_L, Clstr_M)
