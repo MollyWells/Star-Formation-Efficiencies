@@ -22,7 +22,7 @@ import numpy as np
 sStellar_mass = []
 x = 0.1
 
-for n in range(1024):
+for n in range(1026):
 
     sStellar_mass.append(x)
 
@@ -40,10 +40,11 @@ aClmp_M = np.genfromtxt('CMasses.csv', delimiter = ',', usecols = 2)
 
 SFE_all = []
 #START OF LOOP
-
-runs = 1000
+debug = False
+Tol_L = 0.1
+runs = 100
 for k in range(len(aClmp_M)):
-
+    print(f'Processing Clump Mass {aClmp_M[k]:0.2f}' )
     
 
 # Create empty strings for storing cluster properties, i.e Cluster 
@@ -64,7 +65,8 @@ for k in range(len(aClmp_M)):
 #==============================================================================
 
 
-
+    count_Ex_M = 0
+    count_Ex_L = 0
     for j in range(runs):
 
         
@@ -85,17 +87,17 @@ for k in range(len(aClmp_M)):
 #======================= START of loop adding each STAR =======================
        
         
-        print('running')
-        counter = 0
-
-        while (Clstr_L <= 21.82*(Clstr_M**1.1849)):
-            
-            if counter == runs:
-                break
-            else: 
+        #print('running')
+        #counter = 0
         
-                Prev_M = Clstr_M
-                Prev_L = Clstr_L   
+        while True:
+            
+            #if counter == runs:
+               # break
+            #else: 
+        
+            Prev_M = Clstr_M
+            Prev_L = Clstr_L   
 
             
 
@@ -103,117 +105,145 @@ for k in range(len(aClmp_M)):
 
             #   probabilities
 
-                Random_number = r.random()         
+            Random_number = r.random()         
 
-                Index = np.argmax(np.where(aC_Prob < Random_number))     #maxvalue
+            Index = np.argmax(np.where(aC_Prob < Random_number))     #maxvalue
 
-                Star_M = aStellar_mass[Index]                        
+            Star_M = aStellar_mass[Index] 
 
-            
+                          
 
-            # Increase total cluster population
+        
 
-                Clstr_pop = Clstr_pop + 1
+        # Increase total cluster population
 
-            
+            Clstr_pop = Clstr_pop + 1
 
-            # Calculate new cluster mass
+        
 
-                Clstr_M = Clstr_M + Star_M
+        # Calculate new cluster mass
 
-            
+            Clstr_M = Clstr_M + Star_M
 
-            # Define constants for calculating cluster properties
+            #print('added star of mass', Star_M, Clstr_pop, Clstr_M) 
 
-                a = 3.94613-0.0242550*Star_M+0.000249373*Star_M**2-9.52930e-07*Star_M**3
+        # Define constants for calculating cluster properties
 
-                b = 39.0353+0.853175*Star_M-0.0255907*Star_M**2+0.000263813*Star_M**3
+            a = 3.94613-0.0242550*Star_M+0.000249373*Star_M**2-9.52930e-07*Star_M**3
 
-                c = 47.6503+0.0540930*Star_M-0.000517299*Star_M**2+1.80882e-06*Star_M**3
+            b = 39.0353+0.853175*Star_M-0.0255907*Star_M**2+0.000263813*Star_M**3
 
-            
+            c = 47.6503+0.0540930*Star_M-0.000517299*Star_M**2+1.80882e-06*Star_M**3
 
-            # Calculate new cluster luminousity
+        
 
-                if (Star_M < 1):      
+        # Calculate new cluster luminousity
 
-                        Clstr_L = Clstr_L+(Star_M**4)  
+            if (Star_M < 1):      
 
-                else:                            
+                    Clstr_L = Clstr_L+(Star_M**4)  
 
-                        Clstr_L = Clstr_L+(Star_M**(a)) 
+            else:                            
+
+                    Clstr_L = Clstr_L+(Star_M**(a)) 
 
 
-                try:
-                    logClstr_L = m.log10(Clstr_L)
-                except ValueError:
-                    pass
-                    
-                logaClmp_M = m.log10(aClmp_M[k])
-
-            
-
-                if (Prev_L == 0):
-
-                    logPrev_L = np.NaN
-
-                else:    
-
-                    logPrev_L = m.log10(Prev_L)
+            try:
+                logClstr_L = m.log10(Clstr_L)
+            except ValueError:
+                pass
                 
-                  
+            logaClmp_M = m.log10(aClmp_M[k])
 
-                if (Prev_M > aClmp_M[k]*0.99):
+        
 
+            if (Prev_L == 0):
 
-                    Clstr_pop = Clstr_pop - 1
+                logPrev_L = np.NaN
 
-                    Clstr_M = Prev_M
+            else:    
 
-                    Clstr_L = Prev_L 
-                    
-               
-                counter += 1
+                logPrev_L = m.log10(Prev_L)
+            
+            Ex_M = Prev_M > aClmp_M[k]*0.99
+            Ex_L = Clstr_L > (1+Tol_L)*21.82*(Clstr_M**1.1849)
+            
+            if (Ex_M and Ex_L): 
+                
+                Clstr_M, Clstr_L, LyFlx = 0.0, 0.0, 0.0     
+                Prev_M, Prev_L = 0.0, 0.0                           
+                Most_M, Most_L, Most_LyFlx, TMC = 0.1, 0.0, 0.0, 0.0
 
-        print ('Cluster', j, Clstr_L, Clstr_M)
+                Clstr_pop = 0
+
+            if (Ex_M):
+                
+
+                Clstr_pop = Clstr_pop - 1
+
+                Clstr_M = Prev_M
+
+                Clstr_L = Prev_L 
+                
+                count_Ex_M += 1
+
+                break
+
+            if (Ex_L and Clstr_pop > int(aClmp_M[k]*0.1)):
+
+                Clstr_pop = Clstr_pop - 1
+
+                Clstr_M = Prev_M
+
+                Clstr_L = Prev_L 
+                
+                count_Ex_L += 1
+
+                break
+            
+            #counter += 1
+
+        if debug:
+            print ('Cluster', j, Clstr_L, Clstr_M)
         # Calculate the Star Formation Efficiency (SFE)
 
         SFE = (Clstr_M/aClmp_M[k])*100
                 
         # Calculate Average Stellar Mass
         
-        AvStar_M = Clstr_M/Clstr_pop 
+        #AvStar_M = Clstr_M/Clstr_pop 
         
         # Sum of cluster SFEs and luminosities etc. for calculation of average values 
 
-        Total_SFE = Total_SFE + SFE  
+        #Total_SFE = Total_SFE + SFE  
 
-        Total_Clstr_L = Total_Clstr_L + Clstr_L
+        #Total_Clstr_L = Total_Clstr_L + Clstr_L
 
-        Total_AvStar_M = Total_AvStar_M + AvStar_M      
+        #Total_AvStar_M = Total_AvStar_M + AvStar_M      
                 
-        Total_Clstr_pop = Total_Clstr_pop + Clstr_pop
+        #Total_Clstr_pop = Total_Clstr_pop + Clstr_pop
 
-        Total_Most_M = Total_Most_M + Most_M
+        #Total_Most_M = Total_Most_M + Most_M
             
 
         # Record cluster properties such as SFE and cluster luminosity, etc.
 
         sSFE.append(SFE)
 
-        sClstr_L.append(Clstr_L)  
+        #sClstr_L.append(Clstr_L)  
         
-        sClstr_M.append(Clstr_M)      
+        #sClstr_M.append(Clstr_M)      
             
-        sMost_M.append(Most_M)    
+        #sMost_M.append(Most_M)    
     
-        sMost_L.append(Most_L)      
+        #sMost_L.append(Most_L)      
 
-        sClstr_pop.append(Clstr_pop)     
+        #sClstr_pop.append(Clstr_pop)     
        
               
     SFE_all.append(sSFE)  
     
+    print(count_Ex_L, count_Ex_M)
 
 ###############################################################################
 
@@ -289,6 +319,8 @@ plt.boxplot(data, positions = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,2
 plt.xticks(np.array([1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21]), (2, 2.1,2.2,2.3,2.4,2.5,2.6,2.7,2.8,2.9,3,3.1,3.2,3.3,3.4,3.5,3.6,3.7,3.8,3.9,4))
 plt.xlabel('Log(Mass)')
 plt.ylabel('SFE (%)')
+#ax = plt.gca()
+#ax.set_yscale('log')
 plt.show() 
 
 
