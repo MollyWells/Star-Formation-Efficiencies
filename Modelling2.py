@@ -42,7 +42,7 @@ SFE_all = []
 #START OF LOOP
 debug = False
 Tol_L = 0.1
-runs = 100
+runs = 1000
 for k in range(len(aClmp_M)):
     print(f'Processing Clump Mass {aClmp_M[k]:0.2f}' )
     
@@ -189,7 +189,7 @@ for k in range(len(aClmp_M)):
 
                 break
 
-            if (Ex_L and Clstr_pop > int(aClmp_M[k]*0.1)):
+            if (Ex_L and Clstr_pop > int(aClmp_M[k]*0.1)): #here is the limit for the cluster population, without this the SFE for 10^4 is too low
 
                 Clstr_pop = Clstr_pop - 1
 
@@ -279,10 +279,10 @@ data19 = SFE_all[18]
 data20 = SFE_all[19] 
 data21 = SFE_all[20]    
 data_all = np.concatenate([data1,data2,data3,data4,data5,data6,data7,data8,data9,data10,data11,data12,data13,data14,data15,data16,data17,data18,data19,data20,data21])
-data_all1 = np.concatenate([data1,data2,data3,data4,data5,data6])
-data_all2 = np.concatenate([data7,data8,data9,data10,data11])
-data_all3 = np.concatenate([data12,data13,data14,data15,data16])
-data_all4 = np.concatenate([data17,data18,data19,data20,data21])
+#data_all1 = np.concatenate([data1,data2,data3,data4,data5,data6])
+#data_all2 = np.concatenate([data7,data8,data9,data10,data11])
+#data_all3 = np.concatenate([data12,data13,data14,data15,data16])
+#data_all4 = np.concatenate([data17,data18,data19,data20,data21])
 
 
 
@@ -309,10 +309,10 @@ x20 = [3.9] * 1000
 x21 = [4] * 1000
 
 x_all = np.concatenate([x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21])
-x_all1 = np.concatenate([x1,x2,x3,x4,x5,x6])
-x_all2 = np.concatenate([x7,x8,x9,x10,x11])
-x_all3 = np.concatenate([x12,x13,x14,x15,x16])
-x_all4 = np.concatenate([x17,x18,x19,x20,x21])
+#x_all1 = np.concatenate([x1,x2,x3,x4,x5,x6])
+#x_all2 = np.concatenate([x7,x8,x9,x10,x11])
+#x_all3 = np.concatenate([x12,x13,x14,x15,x16])
+#x_all4 = np.concatenate([x17,x18,x19,x20,x21])
 
 data = [data1,data2,data3,data4,data5,data6,data7,data8,data9,data10,data11,data12,data13,data14,data15,data16,data17,data18,data19,data20,data21]
 plt.boxplot(data, positions = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21], showfliers = False)
@@ -326,10 +326,10 @@ plt.show()
 
 
 xA = [2,2.1,2.2,2.3,2.4,2.5,2.6,2.7,2.8,2.9,3,3.1,3.2,3.3,3.4,3.5,3.6,3.7,3.8,3.9,4]    
-xa = [2,2.1,2.2,2.3,2.4,2.5]
-xb = [2.6,2.7,2.8,2.9,3]
-xc = [3.1,3.2,3.3,3.4,3.5]
-xd = [3.6,3.7,3.8,3.9,4]
+#xa = [2,2.1,2.2,2.3,2.4,2.5]
+#xb = [2.6,2.7,2.8,2.9,3]
+#xc = [3.1,3.2,3.3,3.4,3.5]
+#xd = [3.6,3.7,3.8,3.9,4]
 #for xe, ye in zip(x, data):
     #plt.hist2d([xe] * len(ye), data, bins=[21,150] , cmap='Blues')
     
@@ -341,40 +341,4 @@ plt.colorbar()
 plt.xlabel('Log(Mass)')
 plt.ylabel('SFE (%)')
 plt.show()   
-    
-plt.hist2d(x_all1,data_all1, bins =[6,150], cmap = 'Blues' )  
-plt.xticks(xa)
-plt.ylim(0.01,15)
-#plt.axes().set_xticklabels(['1', '2','3','4','5','6','7','8'])
-plt.colorbar()
-plt.xlabel('Log(Mass)')
-plt.ylabel('SFE (%)')
-plt.show() 
-
-plt.hist2d(x_all2,data_all2, bins =[5,150], cmap = 'Blues' )  
-plt.xticks(xb)
-plt.ylim(0.01,5)
-#plt.axes().set_xticklabels(['1', '2','3','4','5','6','7','8'])
-plt.colorbar()
-plt.xlabel('Log(Mass)')
-plt.ylabel('SFE (%)')
-plt.show() 
-
-plt.hist2d(x_all3,data_all3, bins =[5,200], cmap = 'Blues' )  
-plt.xticks(xc)
-plt.ylim(0.01,1)
-#plt.axes().set_xticklabels(['1', '2','3','4','5','6','7','8'])
-plt.colorbar()
-plt.xlabel('Log(Mass)')
-plt.ylabel('SFE (%)')
-plt.show() 
-
-plt.hist2d(x_all4,data_all4, bins =[5,200], cmap = 'Blues' )  
-plt.xticks(xd)
-plt.ylim(0.01,0.5)
-#plt.axes().set_xticklabels(['1', '2','3','4','5','6','7','8'])
-plt.colorbar()
-plt.xlabel('Log(Mass)')
-plt.ylabel('SFE (%)')
-plt.show() 
     
