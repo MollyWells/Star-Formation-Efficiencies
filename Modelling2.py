@@ -166,7 +166,9 @@ for k in range(len(aClmp_M)):
                 logPrev_L = m.log10(Prev_L)
             
             Ex_M = Prev_M > aClmp_M[k]*0.99
-            Ex_L = Clstr_L > (1+Tol_L)*21.82*(Clstr_M**1.1849)
+            #Ex_L = Clstr_L > (1+Tol_L)*21.64*(aClmp_M[k]**1.1849)
+            #Ex_L = Clstr_L > (1+Tol_L)*33.27*(aClmp_M[k]**1.223)
+            Ex_L = Clstr_L > (1+Tol_L)*54.57*(aClmp_M[k]**0.9915)
             
             if (Ex_M and Ex_L): 
                 
@@ -177,7 +179,6 @@ for k in range(len(aClmp_M)):
                 Clstr_pop = 0
 
             if (Ex_M):
-                
 
                 Clstr_pop = Clstr_pop - 1
 
@@ -189,7 +190,7 @@ for k in range(len(aClmp_M)):
 
                 break
 
-            if (Ex_L and Clstr_pop > int(aClmp_M[k]*0.1)): #here is the limit for the cluster population, without this the SFE for 10^4 is too low
+            if (Ex_L): #here is the limit for the cluster population, without this the SFE for 10^4 is too low Clstr_pop > int(aClmp_M[k]*0.1)
 
                 Clstr_pop = Clstr_pop - 1
 
@@ -202,7 +203,7 @@ for k in range(len(aClmp_M)):
                 break
             
             #counter += 1
-            
+
 
         if debug:
             print ('Cluster', j, Clstr_L, Clstr_M)
@@ -316,7 +317,7 @@ x_all = np.concatenate([x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x
 #x_all4 = np.concatenate([x17,x18,x19,x20,x21])
 
 data = [data1,data2,data3,data4,data5,data6,data7,data8,data9,data10,data11,data12,data13,data14,data15,data16,data17,data18,data19,data20,data21]
-plt.boxplot(data, positions = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21], showfliers = False)
+plt.boxplot(data, positions = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21], showfliers = False, showmeans = True)
 plt.xticks(np.array([1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21]), (2, 2.1,2.2,2.3,2.4,2.5,2.6,2.7,2.8,2.9,3,3.1,3.2,3.3,3.4,3.5,3.6,3.7,3.8,3.9,4))
 plt.xlabel('Log(Mass)')
 plt.ylabel('SFE (%)')
@@ -328,15 +329,15 @@ plt.show()
 
 xA = [2,2.1,2.2,2.3,2.4,2.5,2.6,2.7,2.8,2.9,3,3.1,3.2,3.3,3.4,3.5,3.6,3.7,3.8,3.9,4]    
 #xa = [2,2.1,2.2,2.3,2.4,2.5]
-#xb = [2.6,2.7,2.8,2.9,3]
+#xb = [2.6,2.7,2.8,2.9,3] 
 #xc = [3.1,3.2,3.3,3.4,3.5]
 #xd = [3.6,3.7,3.8,3.9,4]
 #for xe, ye in zip(x, data):
     #plt.hist2d([xe] * len(ye), data, bins=[21,150] , cmap='Blues')
     
-plt.hist2d(x_all,data_all, bins =[21,150], cmap = 'Blues' )  
+plt.hist2d(x_all,data_all, bins =[21,50], cmap = 'Blues' )  
 plt.xticks(xA)
-plt.ylim(0,25)
+plt.ylim(0,100)
 #plt.axes().set_xticklabels(['1', '2','3','4','5','6','7','8'])
 plt.colorbar()
 plt.xlabel('Log(Mass)')
