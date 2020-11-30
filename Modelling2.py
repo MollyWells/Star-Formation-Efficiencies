@@ -15,6 +15,7 @@ import random as r
 import csv
 from scipy import stats
 import numpy as np
+import scipy as sp
 
 # IMPORT INITIAL MASS FUNCTION 
 # Assign stellar masses (range 0.1 to 120 Msun), logarithmically spaced 
@@ -324,6 +325,18 @@ plt.ylabel('SFE (%)')
 #ax = plt.gca()
 #ax.set_yscale('log')
 plt.show() 
+
+
+xs = x_all
+ys = data_all
+myfit = sp.polyfit(xs,ys,2)
+print(myfit[0],"x^2 + ", myfit[1], 'x + ', myfit[2])
+fitted_ys =  myfit[0] * xs**2 + myfit[1] * xs + myfit[2]
+plt.plot(xs,ys,'k.')
+plt.plot(xs,fitted_ys,'r-')
+plt.show()
+
+
 
 
 
