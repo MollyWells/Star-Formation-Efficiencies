@@ -170,6 +170,8 @@ for k in range(len(aClmp_M)):
             #Ex_L = Clstr_L > (1+Tol_L)*21.64*(aClmp_M[k]**1.1849)
             #Ex_L = Clstr_L > (1+Tol_L)*33.27*(aClmp_M[k]**1.223)
             Ex_L = Clstr_L > (1+Tol_L)*54.57*(aClmp_M[k]**0.9915)
+           # Ex_L = Clstr_L > (1+Tol_L)*6.681*(aClmp_M[k]**1.0511)
+
             
             if (Ex_M and Ex_L): 
                 
@@ -259,7 +261,10 @@ for k in range(len(aClmp_M)):
 
                                                     
  #BOXPLOT SFE vs INITIAL CLUMP MASS
-    
+
+#for n in SFE_all:
+  #  data_all.append(SFE_all[n])
+
 data1 = SFE_all[0] 
 data2 = SFE_all[1] 
 data3 = SFE_all[2] 
@@ -287,6 +292,10 @@ data_all = np.concatenate([data1,data2,data3,data4,data5,data6,data7,data8,data9
 #data_all3 = np.concatenate([data12,data13,data14,data15,data16])
 #data_all4 = np.concatenate([data17,data18,data19,data20,data21])
 
+#count = 1
+#for n in range(2, 4, 0.1):
+  #  x[count] = [n] * 1000
+   # count+=1
 
 
 x1 = [2] * 1000
@@ -334,6 +343,8 @@ print(myfit[0],"x^2 + ", myfit[1], 'x + ', myfit[2])
 fitted_ys =  myfit[0] * xs**2 + myfit[1] * xs + myfit[2]
 plt.plot(xs,ys,'k.')
 plt.plot(xs,fitted_ys,'r-')
+plt.xlabel('Log(Mass)')
+plt.ylabel('SFE (%)')
 plt.show()
 
 
