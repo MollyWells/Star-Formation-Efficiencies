@@ -16,6 +16,7 @@ import csv
 from scipy import stats
 import numpy as np
 import scipy as sp
+from datetime import datetime
 
 # IMPORT INITIAL MASS FUNCTION 
 # Assign stellar masses (range 0.1 to 120 Msun), logarithmically spaced 
@@ -41,7 +42,7 @@ aClmp_M = np.genfromtxt('CMasses.csv', delimiter = ',', usecols = 2)
 
 SFE_all = []
 #START OF LOOP
-debug = False
+debug = True
 Tol_L = 0.1
 runs = 1000
 for k in range(len(aClmp_M)):
@@ -74,7 +75,7 @@ for k in range(len(aClmp_M)):
 
         # Define initial cluster properties
 
-        Clstr_M, Clstr_L, LyFlx = 0.0, 0.0, 0.0     
+        Clstr_M, Clstr_L, LyFlx, tot_massive_L = 0.0, 0.0, 0.0, 0.0 
         Prev_M, Prev_L = 0.0, 0.0                           
         Most_M, Most_L, Most_LyFlx, TMC = 0.1, 0.0, 0.0, 0.0
 
@@ -89,7 +90,7 @@ for k in range(len(aClmp_M)):
        
         
         #print('running')
-        #counter = 0
+        counter = 0
         
         while True:
             
@@ -156,6 +157,10 @@ for k in range(len(aClmp_M)):
                 
             logaClmp_M = m.log10(aClmp_M[k])
 
+            if (Star_M > 10):
+
+                counter += 1
+                tot_massive_L = tot_massive_L + (Star_M**(a))
         
 
             if (Prev_L == 0):
@@ -169,13 +174,14 @@ for k in range(len(aClmp_M)):
             Ex_M = Prev_M > aClmp_M[k]*0.99
             #Ex_L = Clstr_L > (1+Tol_L)*21.64*(aClmp_M[k]**1.1849)
             #Ex_L = Clstr_L > (1+Tol_L)*33.27*(aClmp_M[k]**1.223)
-            Ex_L = Clstr_L > (1+Tol_L)*54.57*(aClmp_M[k]**0.9915)
-           # Ex_L = Clstr_L > (1+Tol_L)*6.681*(aClmp_M[k]**1.0511)
+            #Ex_L = Clstr_L > (1+Tol_L)*54.57*(aClmp_M[k]**0.9915)
+            #Ex_L = Clstr_L > (1+Tol_L)*6.681*(aClmp_M[k]**1.0511)
+            Ex_L = Clstr_L > (1+Tol_L)*12.8529*(aClmp_M[k]**1.0492)
 
             
             if (Ex_M and Ex_L): 
                 
-                Clstr_M, Clstr_L, LyFlx = 0.0, 0.0, 0.0     
+                Clstr_M, Clstr_L, LyFlx, tot_massive_L = 0.0, 0.0, 0.0, 0.0     
                 Prev_M, Prev_L = 0.0, 0.0                           
                 Most_M, Most_L, Most_LyFlx, TMC = 0.1, 0.0, 0.0, 0.0
 
@@ -193,7 +199,7 @@ for k in range(len(aClmp_M)):
 
                 break
 
-            if (Ex_L): #here is the limit for the cluster population, without this the SFE for 10^4 is too low Clstr_pop > int(aClmp_M[k]*0.1)
+            if (Ex_L): 
 
                 Clstr_pop = Clstr_pop - 1
 
@@ -208,8 +214,15 @@ for k in range(len(aClmp_M)):
             #counter += 1
 
 
-        if debug:
-            print ('Cluster', j, Clstr_L, Clstr_M)
+        #if debug:
+            #print ('Cluster', j, Clstr_L, Clstr_M)
+
+
+        dateTimeObj = datetime.now()
+        f = open('Clusterproperties.txt', 'a')
+        f.write('Cluster' + ', ' + str(j) + ', ' + str(Clstr_L) + ',' + str(Clstr_M) + ', ' + str(Clstr_pop) + ', ' + str(aClmp_M[k]) + ', ' + str(dateTimeObj) + ', ' + str(counter) + ', ' + str(tot_massive_L) + "\n")
+
+
         # Calculate the Star Formation Efficiency (SFE)
 
         SFE = (Clstr_M/aClmp_M[k])*100
@@ -329,7 +342,7 @@ x_all = np.concatenate([x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x
 data = [data1,data2,data3,data4,data5,data6,data7,data8,data9,data10,data11,data12,data13,data14,data15,data16,data17,data18,data19,data20,data21]
 plt.boxplot(data, positions = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21], showfliers = False, showmeans = True)
 plt.xticks(np.array([1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21]), (2, 2.1,2.2,2.3,2.4,2.5,2.6,2.7,2.8,2.9,3,3.1,3.2,3.3,3.4,3.5,3.6,3.7,3.8,3.9,4))
-plt.xlabel('Log(Mass)')
+plt.xlabel('Log(FWHM_Mass)')
 plt.ylabel('SFE (%)')
 #ax = plt.gca()
 #ax.set_yscale('log')
@@ -343,7 +356,7 @@ print(myfit[0],"x^2 + ", myfit[1], 'x + ', myfit[2])
 fitted_ys =  myfit[0] * xs**2 + myfit[1] * xs + myfit[2]
 plt.plot(xs,ys,'k.')
 plt.plot(xs,fitted_ys,'r-')
-plt.xlabel('Log(Mass)')
+plt.xlabel('Log(FWHM_Mass)')
 plt.ylabel('SFE (%)')
 plt.show()
 
@@ -364,7 +377,7 @@ plt.xticks(xA)
 plt.ylim(0,100)
 #plt.axes().set_xticklabels(['1', '2','3','4','5','6','7','8'])
 plt.colorbar()
-plt.xlabel('Log(Mass)')
+plt.xlabel('Log(FWHM_Mass)')
 plt.ylabel('SFE (%)')
 plt.show()   
     
