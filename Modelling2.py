@@ -75,7 +75,7 @@ for k in range(len(aClmp_M)):
 
         # Define initial cluster properties
 
-        Clstr_M, Clstr_L, LyFlx, tot_massive_L = 0.0, 0.0, 0.0, 0.0 
+        Clstr_M, Clstr_L, LyFlx, tot_massive_L, Star_L = 0.0, 0.0, 0.0, 0.0, 0.0 
         Prev_M, Prev_L = 0.0, 0.0                           
         Most_M, Most_L, Most_LyFlx, TMC = 0.1, 0.0, 0.0, 0.0
 
@@ -113,9 +113,6 @@ for k in range(len(aClmp_M)):
 
             Star_M = aStellar_mass[Index] 
 
-                          
-
-        
 
         # Increase total cluster population
 
@@ -143,11 +140,15 @@ for k in range(len(aClmp_M)):
 
             if (Star_M < 1):      
 
-                    Clstr_L = Clstr_L+(Star_M**4)  
+                    Star_L = Star_M**4
+                    Clstr_L = Clstr_L + Star_L  
+                    
 
             else:                            
 
-                    Clstr_L = Clstr_L+(Star_M**(a)) 
+                    Star_L = Star_M**(a)
+                    Clstr_L = Clstr_L + Star_L
+                    
 
 
             try:
@@ -157,11 +158,12 @@ for k in range(len(aClmp_M)):
                 
             logaClmp_M = m.log10(aClmp_M[k])
 
+
             if (Star_M > 10):
 
-                counter += 1
-                tot_massive_L = tot_massive_L + (Star_M**(a))
-        
+                    counter += 1
+                    tot_massive_L = tot_massive_L + Star_L
+                
 
             if (Prev_L == 0):
 
@@ -173,15 +175,18 @@ for k in range(len(aClmp_M)):
             
             Ex_M = Prev_M > aClmp_M[k]*0.99
             #Ex_L = Clstr_L > (1+Tol_L)*21.64*(aClmp_M[k]**1.1849)
+            #this one is fwhm upper limit
             #Ex_L = Clstr_L > (1+Tol_L)*33.27*(aClmp_M[k]**1.223)
+            
             #Ex_L = Clstr_L > (1+Tol_L)*54.57*(aClmp_M[k]**0.9915)
             #Ex_L = Clstr_L > (1+Tol_L)*6.681*(aClmp_M[k]**1.0511)
+            #this one is fwhm mean
             Ex_L = Clstr_L > (1+Tol_L)*12.8529*(aClmp_M[k]**1.0492)
 
             
             if (Ex_M and Ex_L): 
                 
-                Clstr_M, Clstr_L, LyFlx, tot_massive_L = 0.0, 0.0, 0.0, 0.0     
+                Clstr_M, Clstr_L, LyFlx, tot_massive_L, Star_L = 0.0, 0.0, 0.0, 0.0,0.0
                 Prev_M, Prev_L = 0.0, 0.0                           
                 Most_M, Most_L, Most_LyFlx, TMC = 0.1, 0.0, 0.0, 0.0
 
@@ -340,12 +345,16 @@ x_all = np.concatenate([x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x
 #x_all4 = np.concatenate([x17,x18,x19,x20,x21])
 
 data = [data1,data2,data3,data4,data5,data6,data7,data8,data9,data10,data11,data12,data13,data14,data15,data16,data17,data18,data19,data20,data21]
+xs = x_all
+ys = data_all
 plt.boxplot(data, positions = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21], showfliers = False, showmeans = True)
 plt.xticks(np.array([1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21]), (2, 2.1,2.2,2.3,2.4,2.5,2.6,2.7,2.8,2.9,3,3.1,3.2,3.3,3.4,3.5,3.6,3.7,3.8,3.9,4))
 plt.xlabel('Log(FWHM_Mass)')
 plt.ylabel('SFE (%)')
-#ax = plt.gca()
-#ax.set_yscale('log')
+#myfit = sp.polyfit(xs,ys,2)
+#print(myfit[0],"x^2 + ", myfit[1], 'x + ', myfit[2])
+#fitted_ys =  myfit[0] * xs**2 + myfit[1] * xs + myfit[2]
+#plt.plot(xs,fitted_ys,'r-')
 plt.show() 
 
 
