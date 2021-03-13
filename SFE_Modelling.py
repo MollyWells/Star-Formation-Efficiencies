@@ -261,7 +261,7 @@ plt.show()
 #plt.savefig('boxplot.pdf', format = 'pdf', dpi = 1200)
 
 
-myfit = sp.polyfit(x_all,data_all,2)
+myfit = np.polyfit(x_all,data_all,2)
 print(myfit[0],"x^2 + ", myfit[1], 'x + ', myfit[2])
 fitted_ys =  myfit[0] * x_all**2 + myfit[1] * x_all + myfit[2]
 
