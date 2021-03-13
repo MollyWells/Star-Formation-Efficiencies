@@ -54,11 +54,9 @@ for k in range(len(aClmp_M)):
 #   luminosities, Star formation Efficiencies (SFEs), etc.
 
     sSFE = []   
-    sClstr_L, sClstr_M, sLyFlx = [], [], []
-    sMost_M, sMost_L, sMost_LyFlx = [], [], []        
-    sTMC, sClstr_pop , sAvStar_M = [], [], []         
+    sClstr_L, sClstr_M = [], []         
     Total_SFE, Total_Clstr_L, Total_AvStar_M = 0.0, 0.0, 0.0        
-    Total_LyFlx, Total_Clstr_pop, Total_Most_M = 0.0, 0.0, 0.0
+   
 
 #==============================================================================
 
@@ -75,9 +73,9 @@ for k in range(len(aClmp_M)):
 
         # Define initial cluster properties
 
-        Clstr_M, Clstr_L, LyFlx, tot_massive_L, Star_L = 0.0, 0.0, 0.0, 0.0, 0.0 
+        Clstr_M, Clstr_L, tot_massive_L, Star_L = 0.0, 0.0, 0.0, 0.0
         Prev_M, Prev_L = 0.0, 0.0                           
-        Most_M, Most_L, Most_LyFlx, TMC = 0.1, 0.0, 0.0, 0.0
+        Most_M, Most_L = 0.1, 0.0
 
         Clstr_pop = 0
         
@@ -103,9 +101,7 @@ for k in range(len(aClmp_M)):
 
             
 
-            # Generate a star using random number generation and stellar mass 
-
-            #   probabilities
+            # Generate a star using random number generation and stellar mass probabilities
 
             Random_number = r.random()         
 
@@ -124,7 +120,7 @@ for k in range(len(aClmp_M)):
 
             Clstr_M = Clstr_M + Star_M
 
-            #print('added star of mass', Star_M, Clstr_pop, Clstr_M) 
+            
 
         # Define constants for calculating cluster properties
 
@@ -174,6 +170,7 @@ for k in range(len(aClmp_M)):
                 logPrev_L = m.log10(Prev_L)
             
             Ex_M = Prev_M > aClmp_M[k]*0.99
+
             #Ex_L = Clstr_L > (1+Tol_L)*21.64*(aClmp_M[k]**1.1849)
             #this one is fwhm upper limit
             #Ex_L = Clstr_L > (1+Tol_L)*33.27*(aClmp_M[k]**1.223)
@@ -186,9 +183,9 @@ for k in range(len(aClmp_M)):
             
             if (Ex_M and Ex_L): 
                 
-                Clstr_M, Clstr_L, LyFlx, tot_massive_L, Star_L = 0.0, 0.0, 0.0, 0.0,0.0
+                Clstr_M, Clstr_L, tot_massive_L, Star_L = 0.0, 0.0, 0.0, 0.0
                 Prev_M, Prev_L = 0.0, 0.0                           
-                Most_M, Most_L, Most_LyFlx, TMC = 0.1, 0.0, 0.0, 0.0
+                Most_M, Most_L = 0.1, 0.0
 
                 Clstr_pop = 0
 
@@ -231,37 +228,12 @@ for k in range(len(aClmp_M)):
         # Calculate the Star Formation Efficiency (SFE)
 
         SFE = (Clstr_M/aClmp_M[k])*100
-                
-        # Calculate Average Stellar Mass
-        
-        #AvStar_M = Clstr_M/Clstr_pop 
-        
-        # Sum of cluster SFEs and luminosities etc. for calculation of average values 
-
-        #Total_SFE = Total_SFE + SFE  
-
-        #Total_Clstr_L = Total_Clstr_L + Clstr_L
-
-        #Total_AvStar_M = Total_AvStar_M + AvStar_M      
-                
-        #Total_Clstr_pop = Total_Clstr_pop + Clstr_pop
-
-        #Total_Most_M = Total_Most_M + Most_M
             
 
-        # Record cluster properties such as SFE and cluster luminosity, etc.
+        # Record cluster SFE
 
         sSFE.append(SFE)
-
-        #sClstr_L.append(Clstr_L)  
-        
-        #sClstr_M.append(Clstr_M)      
-            
-        #sMost_M.append(Most_M)    
-    
-        #sMost_L.append(Most_L)      
-
-        #sClstr_pop.append(Clstr_pop)     
+   
        
               
     SFE_all.append(sSFE)  
@@ -278,10 +250,10 @@ for k in range(len(aClmp_M)):
 
 
                                                     
- #BOXPLOT SFE vs INITIAL CLUMP MASS
+#BOXPLOT SFE vs INITIAL CLUMP MASS
 
 #for n in SFE_all:
-  #  data_all.append(SFE_all[n])
+    #data_all.append(SFE_all[n])
 
 data1 = SFE_all[0] 
 data2 = SFE_all[1] 
@@ -305,10 +277,73 @@ data19 = SFE_all[18]
 data20 = SFE_all[19] 
 data21 = SFE_all[20]    
 data_all = np.concatenate([data1,data2,data3,data4,data5,data6,data7,data8,data9,data10,data11,data12,data13,data14,data15,data16,data17,data18,data19,data20,data21])
-#data_all1 = np.concatenate([data1,data2,data3,data4,data5,data6])
-#data_all2 = np.concatenate([data7,data8,data9,data10,data11])
-#data_all3 = np.concatenate([data12,data13,data14,data15,data16])
-#data_all4 = np.concatenate([data17,data18,data19,data20,data21])
+
+print(np.std(data1))
+print(np.std(data2))
+print(np.std(data3))
+print(np.std(data4))
+print(np.std(data5))
+print(np.std(data6))
+print(np.std(data7))
+print(np.std(data8))
+print(np.std(data9))
+print(np.std(data10))
+print(np.std(data11))
+print(np.std(data12))
+print(np.std(data13))
+print(np.std(data14))
+print(np.std(data15))
+print(np.std(data16))
+print(np.std(data17))
+print(np.std(data18))
+print(np.std(data19))
+print(np.std(data20))
+
+print(np.mean(data1))
+print(np.mean(data2))
+print(np.mean(data3))
+print(np.mean(data4))
+print(np.mean(data5))
+print(np.mean(data6))
+print(np.mean(data7))
+print(np.mean(data8))
+print(np.mean(data9))
+print(np.mean(data10))
+print(np.mean(data11))
+print(np.mean(data12))
+print(np.mean(data13))
+print(np.mean(data14))
+print(np.mean(data15))
+print(np.mean(data16))
+print(np.mean(data17))
+print(np.mean(data18))
+print(np.mean(data19))
+print(np.mean(data20))
+
+
+print(np.std(data1)/np.mean(data1))
+print(np.std(data2)/np.mean(data2))
+print(np.std(data3)/np.mean(data3))
+print(np.std(data4)/np.mean(data4))
+print(np.std(data5)/np.mean(data5))
+print(np.std(data6)/np.mean(data6))
+print(np.std(data7)/np.mean(data7))
+print(np.std(data8)/np.mean(data8))
+print(np.std(data9)/np.mean(data9))
+print(np.std(data10)/np.mean(data10))
+print(np.std(data11)/np.mean(data11))
+print(np.std(data12)/np.mean(data12))
+print(np.std(data13)/np.mean(data13))
+print(np.std(data14)/np.mean(data14))
+print(np.std(data15)/np.mean(data15))
+print(np.std(data16)/np.mean(data16))
+print(np.std(data17)/np.mean(data17))
+print(np.std(data18)/np.mean(data18))
+print(np.std(data19)/np.mean(data19))
+print(np.std(data20)/np.mean(data20))
+
+
+
 
 #count = 1
 #for n in range(2, 4, 0.1):
@@ -339,23 +374,7 @@ x20 = [3.9] * 1000
 x21 = [4] * 1000
 
 x_all = np.concatenate([x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21])
-#x_all1 = np.concatenate([x1,x2,x3,x4,x5,x6])
-#x_all2 = np.concatenate([x7,x8,x9,x10,x11])
-#x_all3 = np.concatenate([x12,x13,x14,x15,x16])
-#x_all4 = np.concatenate([x17,x18,x19,x20,x21])
 
-data = [data1,data2,data3,data4,data5,data6,data7,data8,data9,data10,data11,data12,data13,data14,data15,data16,data17,data18,data19,data20,data21]
-xs = x_all
-ys = data_all
-plt.boxplot(data, positions = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21], showfliers = False, showmeans = True)
-plt.xticks(np.array([1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21]), (2, 2.1,2.2,2.3,2.4,2.5,2.6,2.7,2.8,2.9,3,3.1,3.2,3.3,3.4,3.5,3.6,3.7,3.8,3.9,4))
-plt.xlabel('Log(FWHM_Mass)')
-plt.ylabel('SFE (%)')
-#myfit = sp.polyfit(xs,ys,2)
-#print(myfit[0],"x^2 + ", myfit[1], 'x + ', myfit[2])
-#fitted_ys =  myfit[0] * xs**2 + myfit[1] * xs + myfit[2]
-#plt.plot(xs,fitted_ys,'r-')
-plt.show() 
 
 
 xs = x_all
@@ -363,30 +382,23 @@ ys = data_all
 myfit = sp.polyfit(xs,ys,2)
 print(myfit[0],"x^2 + ", myfit[1], 'x + ', myfit[2])
 fitted_ys =  myfit[0] * xs**2 + myfit[1] * xs + myfit[2]
-plt.plot(xs,ys,'k.')
+#plt.boxplot(SFE_all, positions = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21], showfliers = False, showmeans = True)
+#plt.xticks([1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21], [2, 2.1,2.2,2.3,2.4,2.5,2.6,2.7,2.8,2.9,3,3.1,3.2,3.3,3.4,3.5,3.6,3.7,3.8,3.9,4])
+#plt.xlabel('Log_10(Mass)')
+#plt.ylabel('SFE (%)')
+#plt.show() 
+#plt.savefig('boxplot.pdf', format = 'pdf', dpi = 1200)
+
+
+
+#plt.plot(xs,ys,'k.')
 plt.plot(xs,fitted_ys,'r-')
-plt.xlabel('Log(FWHM_Mass)')
+plt.xlabel('Log_10(Mass)')
+plt.xlim
 plt.ylabel('SFE (%)')
-plt.show()
+#plt.show()
+plt.savefig('boxplot_line.pdf', format = 'pdf', dpi = 1200)
 
 
 
 
-
-xA = [2,2.1,2.2,2.3,2.4,2.5,2.6,2.7,2.8,2.9,3,3.1,3.2,3.3,3.4,3.5,3.6,3.7,3.8,3.9,4]    
-#xa = [2,2.1,2.2,2.3,2.4,2.5]
-#xb = [2.6,2.7,2.8,2.9,3] 
-#xc = [3.1,3.2,3.3,3.4,3.5]
-#xd = [3.6,3.7,3.8,3.9,4]
-#for xe, ye in zip(x, data):
-    #plt.hist2d([xe] * len(ye), data, bins=[21,150] , cmap='Blues')
-    
-plt.hist2d(x_all,data_all, bins =[21,50], cmap = 'Blues' )  
-plt.xticks(xA)
-plt.ylim(0,100)
-#plt.axes().set_xticklabels(['1', '2','3','4','5','6','7','8'])
-plt.colorbar()
-plt.xlabel('Log(FWHM_Mass)')
-plt.ylabel('SFE (%)')
-plt.show()   
-    
