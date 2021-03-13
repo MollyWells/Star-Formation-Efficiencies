@@ -6,7 +6,7 @@ Created on Sun Oct 25 12:47:13 2020
 @author: mollywells
 """
 
-#Modelling2.0
+#SFE_Modelling
 
 import math as m
 import numpy as np
@@ -245,156 +245,32 @@ for k in range(len(aClmp_M)):
 
 
 
-
                                                     
 #BOXPLOT SFE vs INITIAL CLUMP MASS
 
-#for n in SFE_all:
-    #data_all.append(SFE_all[n])
-
-data1 = SFE_all[0] 
-data2 = SFE_all[1] 
-data3 = SFE_all[2] 
-data4 = SFE_all[3] 
-data5 = SFE_all[4] 
-data6 = SFE_all[5] 
-data7 = SFE_all[6] 
-data8 = SFE_all[7] 
-data9 = SFE_all[8] 
-data10 = SFE_all[9] 
-data11 = SFE_all[10]
-data12 = SFE_all[11]
-data13 = SFE_all[12] 
-data14 = SFE_all[13] 
-data15 = SFE_all[14] 
-data16 = SFE_all[15] 
-data17 = SFE_all[16] 
-data18 = SFE_all[17] 
-data19 = SFE_all[18] 
-data20 = SFE_all[19] 
-data21 = SFE_all[20]    
-data_all = np.concatenate([data1,data2,data3,data4,data5,data6,data7,data8,data9,data10,data11,data12,data13,data14,data15,data16,data17,data18,data19,data20,data21])
-
-print(np.std(data1))
-print(np.std(data2))
-print(np.std(data3))
-print(np.std(data4))
-print(np.std(data5))
-print(np.std(data6))
-print(np.std(data7))
-print(np.std(data8))
-print(np.std(data9))
-print(np.std(data10))
-print(np.std(data11))
-print(np.std(data12))
-print(np.std(data13))
-print(np.std(data14))
-print(np.std(data15))
-print(np.std(data16))
-print(np.std(data17))
-print(np.std(data18))
-print(np.std(data19))
-print(np.std(data20))
-
-print(np.mean(data1))
-print(np.mean(data2))
-print(np.mean(data3))
-print(np.mean(data4))
-print(np.mean(data5))
-print(np.mean(data6))
-print(np.mean(data7))
-print(np.mean(data8))
-print(np.mean(data9))
-print(np.mean(data10))
-print(np.mean(data11))
-print(np.mean(data12))
-print(np.mean(data13))
-print(np.mean(data14))
-print(np.mean(data15))
-print(np.mean(data16))
-print(np.mean(data17))
-print(np.mean(data18))
-print(np.mean(data19))
-print(np.mean(data20))
+data_all = np.concatenate(SFE_all)
+x_vals = np.genfromtxt('CMasses.csv', delimiter = ',', usecols = 0)
+x_all = np.repeat(x_vals,1000)
 
 
-print(np.std(data1)/np.mean(data1))
-print(np.std(data2)/np.mean(data2))
-print(np.std(data3)/np.mean(data3))
-print(np.std(data4)/np.mean(data4))
-print(np.std(data5)/np.mean(data5))
-print(np.std(data6)/np.mean(data6))
-print(np.std(data7)/np.mean(data7))
-print(np.std(data8)/np.mean(data8))
-print(np.std(data9)/np.mean(data9))
-print(np.std(data10)/np.mean(data10))
-print(np.std(data11)/np.mean(data11))
-print(np.std(data12)/np.mean(data12))
-print(np.std(data13)/np.mean(data13))
-print(np.std(data14)/np.mean(data14))
-print(np.std(data15)/np.mean(data15))
-print(np.std(data16)/np.mean(data16))
-print(np.std(data17)/np.mean(data17))
-print(np.std(data18)/np.mean(data18))
-print(np.std(data19)/np.mean(data19))
-print(np.std(data20)/np.mean(data20))
-
-
-
-
-#count = 1
-#for n in range(2, 4, 0.1):
-  #  x[count] = [n] * 1000
-   # count+=1
-
-
-x1 = [2] * 1000
-x2 = [2.1] * 1000
-x3 = [2.2] * 1000
-x4 = [2.3] * 1000
-x5 = [2.4] * 1000
-x6 = [2.5] * 1000
-x7 = [2.6] * 1000
-x8 = [2.7] * 1000
-x9 = [2.8] * 1000
-x10 = [2.9] * 1000
-x11 = [3] * 1000
-x12 = [3.1] * 1000
-x13 = [3.2] * 1000
-x14 = [3.3] * 1000
-x15 = [3.4] * 1000
-x16 = [3.5] * 1000
-x17 = [3.6] * 1000
-x18 = [3.7] * 1000
-x19 = [3.8] * 1000
-x20 = [3.9] * 1000
-x21 = [4] * 1000
-
-x_all = np.concatenate([x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21])
-
-
-
-xs = x_all
-ys = data_all
-myfit = sp.polyfit(xs,ys,2)
-print(myfit[0],"x^2 + ", myfit[1], 'x + ', myfit[2])
-fitted_ys =  myfit[0] * xs**2 + myfit[1] * xs + myfit[2]
-#plt.boxplot(SFE_all, positions = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21], showfliers = False, showmeans = True)
-#plt.xticks([1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21], [2, 2.1,2.2,2.3,2.4,2.5,2.6,2.7,2.8,2.9,3,3.1,3.2,3.3,3.4,3.5,3.6,3.7,3.8,3.9,4])
-#plt.xlabel('Log_10(Mass)')
-#plt.ylabel('SFE (%)')
-#plt.show() 
+plt.boxplot(SFE_all, positions = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21], showfliers = False, showmeans = True)
+plt.xticks([1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21], [2, 2.1,2.2,2.3,2.4,2.5,2.6,2.7,2.8,2.9,3,3.1,3.2,3.3,3.4,3.5,3.6,3.7,3.8,3.9,4])
+plt.xlabel('Log_10(Mass)')
+plt.ylabel('SFE (%)')
+plt.show() 
 #plt.savefig('boxplot.pdf', format = 'pdf', dpi = 1200)
 
 
+myfit = sp.polyfit(x_all,data_all,2)
+print(myfit[0],"x^2 + ", myfit[1], 'x + ', myfit[2])
+fitted_ys =  myfit[0] * x_all**2 + myfit[1] * x_all + myfit[2]
 
-#plt.plot(xs,ys,'k.')
-plt.plot(xs,fitted_ys,'r-')
+plt.plot(x_all,data_all,'k.')
+plt.plot(x_all,fitted_ys,'r-')
 plt.xlabel('Log_10(Mass)')
-plt.xlim
 plt.ylabel('SFE (%)')
-#plt.show()
-plt.savefig('boxplot_line.pdf', format = 'pdf', dpi = 1200)
+plt.show()
+#plt.savefig('boxplot_line.pdf', format = 'pdf', dpi = 1200)
 
 
 
