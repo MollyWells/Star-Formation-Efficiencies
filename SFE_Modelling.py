@@ -252,13 +252,13 @@ data_all = np.concatenate(SFE_all)
 x_vals = np.genfromtxt('CMasses.csv', delimiter = ',', usecols = 0)
 x_all = np.repeat(x_vals,1000)
 
-
+plt.style.use('dark_background')
 plt.boxplot(SFE_all, positions = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21], showfliers = False, showmeans = True)
 plt.xticks([1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21], [2, 2.1,2.2,2.3,2.4,2.5,2.6,2.7,2.8,2.9,3,3.1,3.2,3.3,3.4,3.5,3.6,3.7,3.8,3.9,4])
 plt.xlabel('Log_10(Mass)')
 plt.ylabel('SFE (%)')
 plt.show() 
-#plt.savefig('boxplot.pdf', format = 'pdf', dpi = 1200)
+#plt.savefig('boxplot_poster.png', format = 'png', dpi = 1200)
 
 
 myfit = np.polyfit(x_all,data_all,2)
@@ -270,7 +270,7 @@ plt.plot(x_all,fitted_ys,'r-')
 plt.xlabel('Log_10(Mass)')
 plt.ylabel('SFE (%)')
 plt.show()
-#plt.savefig('boxplot_line.pdf', format = 'pdf', dpi = 1200)
+#plt.savefig('boxplot_line_poster.png', format = 'png', dpi = 1200)
 
 
 
